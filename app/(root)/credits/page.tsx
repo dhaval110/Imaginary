@@ -1,4 +1,5 @@
-import { SignedIn, auth } from "@clerk/nextjs";
+import { SignedIn } from "@clerk/nextjs";
+import { auth } from "@clerk/nextjs/server";
 import Image from "next/image";
 import { redirect } from "next/navigation";
 
@@ -9,7 +10,7 @@ import { getUserById } from "@/lib/actions/user.actions";
 import Checkout from "@/components/shared/Checkout";
 
 const Credits = async () => {
-  const { userId } = auth();
+  const { userId } = await auth();
 
   if (!userId) redirect("/sign-in");
 
@@ -43,9 +44,8 @@ const Credits = async () => {
                     className="flex items-center gap-4"
                   >
                     <Image
-                      src={`/assets/icons/${
-                        inclusion.isIncluded ? "check.svg" : "cross.svg"
-                      }`}
+                      src={`/assets/icons/${inclusion.isIncluded ? "check.svg" : "cross.svg"
+                        }`}
                       alt="check"
                       width={24}
                       height={24}
